@@ -143,7 +143,7 @@ const About = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                name: 'Kamau Njoroge',
+                name: 'Blessy Altah',
                 role: 'Master Craftsman & Founder',
                 years: '25 years experience'
               },

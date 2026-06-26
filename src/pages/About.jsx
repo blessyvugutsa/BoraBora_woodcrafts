@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import blessyImage from '../assets/blessy.jpeg'; // Import the image for Blessy Altah
 
 const About = () => {
   return (
@@ -145,7 +146,8 @@ const About = () => {
               {
                 name: 'Blessy Altah',
                 role: 'Master Craftsman & Founder',
-                years: '25 years experience'
+                years: '25 years experience',
+                image: blessyImage,
               },
               {
                 name: 'Grace Wanjiku',
@@ -164,10 +166,20 @@ const About = () => {
               }
             ].map((member, index) => (
               <div key={index} className="text-center">
-                <div className="w-32 h-32 mx-auto mb-4 bg-wood-clay/20 rounded-full flex items-center justify-center">
-                  <span className="font-serif text-3xl font-bold text-wood-clay">
-                    {member.name.split(' ').map(n => n[0]).join('')}
-                  </span>
+                <div className="w-36 h-36 mx-auto mb-4 overflow-hidden rounded-full border-4 border-wood-clay/40 shadow-md bg-white">
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-contain object-center p-1"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-wood-clay/20 flex items-center justify-center">
+                      <span className="font-serif text-3xl font-bold text-wood-clay">
+                        {member.name.split(' ').map(n => n[0]).join('')}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <h3 className="font-serif text-lg font-semibold text-wood-text mb-1">
                   {member.name}

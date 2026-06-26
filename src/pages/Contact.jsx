@@ -65,24 +65,30 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const data = new FormData();
+      data.append('access_key', '91717eee-7b56-48d4-9dff-ade778290a91');
+      data.append('name', formData.name);
+      data.append('email', formData.email);
+      data.append('phone', formData.phone);
+      data.append('subject', formData.subject);
+      data.append('message', formData.message);
+      data.append('from_name', 'BoraBora Woodcrafts Contact Form');
+      data.append('reply_to', formData.email);
+      data.append('botcheck', '');
 
-      // In production, this would send the form data to a backend API
-      // Example API call:
-      /*
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          Accept: 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: data
       });
-      
-      if (!response.ok) {
-        throw new Error('Failed to submit form');
+
+      const result = await response.json();
+
+      if (!response.ok || result.success === false) {
+        throw new Error(result.message || 'Failed to submit form');
       }
-      */
 
       setSubmitSuccess(true);
       setFormData({
@@ -95,7 +101,7 @@ const Contact = () => {
 
     } catch (error) {
       console.error('Form submission error:', error);
-      alert('There was an error submitting your message. Please try again.');
+      alert(error.message || 'There was an error submitting your message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

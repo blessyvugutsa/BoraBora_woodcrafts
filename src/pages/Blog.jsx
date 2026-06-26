@@ -9,7 +9,7 @@ const Blog = () => {
       title: 'The Art of Traditional Kenyan Woodcraft: Techniques Passed Down Through Generations',
       excerpt: 'Explore the rich heritage of Kenyan woodworking traditions, from the coastal forests to the skilled artisans who preserve these ancient techniques.',
       content: 'Kenya\'s woodworking tradition spans centuries, with techniques passed down through generations of master craftsmen. From the intricate joinery methods used in traditional furniture to the delicate carving techniques found in ceremonial pieces, each method tells a story of cultural heritage and artistic excellence. Our artisans at BoraBora Woodcrafts continue these traditions, using tools and techniques that have remained largely unchanged for decades while adapting to contemporary design sensibilities.',
-      author: 'Kamau Njoroge',
+      author: 'Blessy Altah',
       date: '2024-01-20',
       category: 'Craftsmanship',
       readTime: '8 min read',

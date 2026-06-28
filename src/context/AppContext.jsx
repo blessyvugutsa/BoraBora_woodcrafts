@@ -3,6 +3,28 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 // Create the AppContext
 const AppContext = createContext();
 
+const getStoredValue = (key, fallback) => {
+  if (typeof window === 'undefined') return fallback;
+
+  try {
+    const savedValue = window.localStorage.getItem(key);
+    return savedValue ? JSON.parse(savedValue) : fallback;
+  } catch (error) {
+    console.warn(`Could not read ${key} from localStorage`, error);
+    return fallback;
+  }
+};
+
+const saveStoredValue = (key, value) => {
+  if (typeof window === 'undefined') return;
+
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.warn(`Could not save ${key} to localStorage`, error);
+  }
+};
+
 // Custom hook to use the AppContext
 export const useAppContext = () => {
   const context = useContext(AppContext);
@@ -15,27 +37,19 @@ export const useAppContext = () => {
 // AppProvider component to wrap the application
 export const AppProvider = ({ children }) => {
   // Cart state - array of items with product details and quantity
-  const [cart, setCart] = useState(() => {
-    // Initialize cart from localStorage if available
-    const savedCart = localStorage.getItem('borabora_cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
+  const [cart, setCart] = useState(() => getStoredValue('borabora_cart', []));
 
   // Wishlist state - array of product IDs
-  const [wishlist, setWishlist] = useState(() => {
-    // Initialize wishlist from localStorage if available
-    const savedWishlist = localStorage.getItem('borabora_wishlist');
-    return savedWishlist ? JSON.parse(savedWishlist) : [];
-  });
+  const [wishlist, setWishlist] = useState(() => getStoredValue('borabora_wishlist', []));
 
   // Persist cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('borabora_cart', JSON.stringify(cart));
+    saveStoredValue('borabora_cart', cart);
   }, [cart]);
 
   // Persist wishlist to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('borabora_wishlist', JSON.stringify(wishlist));
+    saveStoredValue('borabora_wishlist', wishlist);
   }, [wishlist]);
 
   // Add item to cart

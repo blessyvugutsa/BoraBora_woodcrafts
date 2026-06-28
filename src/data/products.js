@@ -310,3 +310,28 @@ export const getRelatedProducts = (currentProduct, limit = 3) => {
     .filter(product => product.category === currentProduct.category && product.id !== currentProduct.id)
     .slice(0, limit);
 };
+
+// Helper function to get products with active flash sales
+export const getFlashSaleProducts = () => {
+  const now = new Date();
+  return products.filter(product => {
+    if (!product.flashSale) return false;
+    const endTime = new Date(product.flashSale.endTime);
+    return endTime > now;
+  });
+};
+
+// Helper function to check if a product has an active flash sale
+export const isFlashSaleActive = (product) => {
+  if (!product.flashSale) return false;
+  const endTime = new Date(product.flashSale.endTime);
+  return endTime > new Date();
+};
+
+// Helper function to get flash sale price (returns sale price if active, otherwise original price)
+export const getFlashSalePrice = (product) => {
+  if (isFlashSaleActive(product) && product.flashSale) {
+    return product.flashSale.salePrice;
+  }
+  return product.price;
+};

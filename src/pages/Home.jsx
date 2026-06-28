@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getFeaturedProducts, formatPrice } from '../data/products';
+import { getFeaturedProducts, formatPrice, getFlashSaleProducts } from '../data/products';
 import { useAppContext } from '../context/AppContext';
+import CountdownTimer from '../components/CountdownTimer';
 
 const Home = () => {
   const featuredProducts = getFeaturedProducts();
